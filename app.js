@@ -10,10 +10,12 @@ const userRouter = require('./routes/user')
 
 app.use(morgan('dev'))
 
+app.use(express.static(__dirname + '/public'))
+
 app.use('/wiki', wikiRouter)
 app.use('/user', userRouter)
 
-app.get('/', (req, res)=>{
+app.get('/', (req, res) => {
   res.redirect('/wiki')
 })
 
