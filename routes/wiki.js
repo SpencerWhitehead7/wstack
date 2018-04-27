@@ -6,10 +6,10 @@ const wikipage = require('../views/wikipage')
 const main = require('../views/main')
 
 router.get('/', async (req, res, next) => {
-  try{
+  try {
     const allPages = await Page.findAll()
     res.send(main(allPages))
-  }catch (error) {
+  } catch (error) {
     next(error)
   }
 })
@@ -26,7 +26,7 @@ router.post('/', async (req, res, next) => {
         email: req.body.email
       }
     })
-  newPage.setAuthor(user)
+    newPage.setAuthor(user)
     res.redirect(`/wiki/${newPage.slug}`)
   } catch (error) {
     next(error)
@@ -40,12 +40,18 @@ router.get('/add', (req, res, next) => {
 router.get('/:slug', async (req, res, next) => {
   try {
     const slug = req.params.slug
+
     const currentPage = await Page.findAll({
       where: {
         slug: slug
       }
     })
-    res.send(wikipage(currentPage[0]))
+    const name = await User.findAll({
+      where: {
+        id: currentPage.authorId
+      }
+    })
+    res.send(wikipage(currentPage[0], name))
   } catch (error) {
     next(error)
   }
