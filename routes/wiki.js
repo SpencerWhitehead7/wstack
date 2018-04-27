@@ -9,11 +9,12 @@ router.get("/", (req, res, next)=>{
 
 router.post("/", async (req, res, next)=>{
   try{
-    await Page.create({
+    const newPage = await Page.create({
       title: req.body.title,
       content: req.body.content,
     })
     res.redirect('/')
+    console.log(newPage.dataValues)
   }catch(error){
     next(error)
   }
