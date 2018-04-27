@@ -7,16 +7,16 @@ module.exports = () => layout(html`
   <form method="POST" action="/wiki/">
     
     <div class="form-group">
-      <label for="author name" class="col-sm-2 control-label">Author Name</label>
+      <label for="name" class="col-sm-2 control-label">name</label>
       <div class="col-sm-10">
-        <input id="Author name" name="Author name" type="text" class="form-control"/>
+        <input id="name" name="name" type="text" class="form-control"/>
       </div>
     </div>
     
     <div class="form-group">
-      <label for="author email" class="col-sm-2 control-label">Author Email</label>
+      <label for="email" class="col-sm-2 control-label">email</label>
       <div class="col-sm-10">
-        <input id="Author email" name="Author email" type="text" class="form-control"/>
+        <input id="email" name="email" type="text" class="form-control"/>
       </div>
     </div>
     
