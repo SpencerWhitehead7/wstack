@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
-const { db } = require('./models')
+const { db, Page, User } = require('./models')
 
 app.use(morgan('dev'))
 
@@ -13,8 +13,18 @@ app.get('/', (req, res, next) => {
   res.send('hello world')
 })
 
-db.authenticate().then(() => {
-  console.log('connected to the database')
-})
+// db.authenticate().then(() => {
+//   console.log('connected to the database')
+// })
 
-app.listen(3000)
+const init = async () => {
+  await db.sync()
+
+  const PORT = 3000
+
+  app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}!`)
+  })
+}
+
+init()
