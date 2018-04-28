@@ -9,9 +9,7 @@ const wikiRouter = require('./routes/wiki')
 const userRouter = require('./routes/user')
 
 app.use(morgan('dev'))
-
-app.use(express.static(__dirname + '/public'))
-
+app.use(express.static('public'))
 app.use('/wiki', wikiRouter)
 app.use('/users', userRouter)
 
@@ -20,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 const init = async () => {
-  await db.sync()
+  await db.sync(/*{force: true}*/)
   const PORT = 3000
   app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}!`)

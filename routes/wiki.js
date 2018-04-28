@@ -9,9 +9,7 @@ router.get('/', async (req, res, next) => {
   try {
     const allPages = await Page.findAll()
     res.send(main(allPages))
-  } catch (error) {
-    next(error)
-  }
+  } catch (error) {next(error)}
 })
 
 router.post('/', async (req, res, next) => {
@@ -28,9 +26,7 @@ router.post('/', async (req, res, next) => {
     })
     newPage.setAuthor(user)
     res.redirect(`/wiki/${newPage.slug}`)
-  } catch (error) {
-    next(error)
-  }
+  } catch (error) {next(error)}
 })
 
 router.get('/add', (req, res, next) => {
@@ -39,22 +35,14 @@ router.get('/add', (req, res, next) => {
 
 router.get('/:slug', async (req, res, next) => {
   try {
-    const slug = req.params.slug
-
     const currentPage = await Page.findAll({
       where: {
-        slug: slug
+        slug: req.params.slug
       }
     })
-    const name = await User.findAll({
-      where: {
-        id: currentPage.authorId
-      }
-    })
+    const name = await User.findById(currentPage[0].authorId)
     res.send(wikipage(currentPage[0], name))
-  } catch (error) {
-    next(error)
-  }
+  } catch (error) {next(error)}
 })
 
 module.exports = router
